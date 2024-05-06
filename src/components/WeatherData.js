@@ -1,5 +1,7 @@
 import React from "react";
 import "./WeatherData.css";
+import HourlyWeatherData from "./HourlyWeatherData";
+
 export default function WeatherData({
   location,
   forecast,
@@ -9,32 +11,6 @@ export default function WeatherData({
   const [isHourlyForecast, setIsHourlyForecast] = React.useState(false);
   const [indexOfClicked, setIndexOfClicked] = React.useState();
   const forecastLocation = forecast.location.name;
-
-  function mapHourlyForecast() {
-    const forecastHours = forecast.forecast.forecastday[indexOfClicked].hour;
-    console.log(forecastHours);
-
-    return forecastHours.map((hour, index) => {
-      const date = new Date(hour.time);
-      return (
-        <div className="hourly-forecast-card" key={index}>
-          <div className={`forecast-${hour}`}>
-            <div className="time">
-              <h6>
-                {date
-                  .toString()
-                  .split(" ")
-                  .splice(4)[0]
-                  .split(":")
-                  .splice(0, 2)
-                  .join(":")}
-              </h6>
-            </div>
-          </div>
-        </div>
-      );
-    });
-  }
 
   function toggleForecast(index) {
     setIndexOfClicked(index);
@@ -95,7 +71,14 @@ export default function WeatherData({
     <div className="weather-data">
       <div className="page-title">The weather in {forecastLocation}:</div>
       <div className="forecasts">
-        {!isHourlyForecast ? mapForecast() : mapHourlyForecast()}
+        {!isHourlyForecast ? (
+          mapForecast()
+        ) : (
+          <HourlyWeatherData
+            forecast={forecast}
+            indexOfClicked={indexOfClicked}
+          />
+        )}
       </div>
     </div>
   );
