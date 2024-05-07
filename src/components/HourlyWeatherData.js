@@ -1,7 +1,12 @@
 import React from "react";
 import "./HourlyWeatherData.css";
 
-export default function WeatherData({ forecast, indexOfClicked }) {
+export default function WeatherData({
+  forecast,
+  indexOfClicked,
+  setIsHourlyForecast,
+  forecastLocation,
+}) {
   const forecastHours = forecast.forecast.forecastday[indexOfClicked].hour;
 
   function mapForecastHours() {
@@ -34,7 +39,7 @@ export default function WeatherData({ forecast, indexOfClicked }) {
             </div>
             <div className="humidity">Humidity: {hour.humidity}%</div>
             <div className="precipitation-percentage">
-              {hour.chance_of_rain}% chance of rain
+              Chance of rain: {hour.chance_of_rain}%
             </div>
             <div className="wind">
               Wind: {hour.wind_dir} at {hour.wind_mph} mph
@@ -47,7 +52,16 @@ export default function WeatherData({ forecast, indexOfClicked }) {
 
   return (
     <div>
-      <p>{forecast.forecast.forecastday.date}</p>
+      <div className="header">
+        <div className="page-title">The weather in {forecastLocation}:</div>
+        <button
+          className="back-btn"
+          onClick={() => setIsHourlyForecast((oldState) => !oldState)}
+        >
+          Back to daily forecast
+        </button>
+      </div>
+      <div>{forecast.forecast.forecastday.date}</div>
       <div className="forecast-cards">{mapForecastHours()}</div>
     </div>
   );

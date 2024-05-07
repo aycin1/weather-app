@@ -38,14 +38,25 @@ function App() {
           />
         </div>
       ) : (
-        <header className="App-header">
-          <p>Welcome! Which location would you like to know the weather for?</p>
-          <input
-            placeholder="town/city"
-            onChange={handleLocationChange}
-          ></input>
-          <button onClick={handleSubmit}>Check the weather!</button>
-        </header>
+        <div className="App">
+          <div className="welcome-page">
+            <header className="App-header">
+              <p className="title">
+                Which location would you like to know the weather for?
+              </p>
+              <div className="input-and-submit">
+                <input
+                  className="town-input"
+                  placeholder="Town/City"
+                  onChange={handleLocationChange}
+                />
+                <button className="submit-btn" onClick={handleSubmit}>
+                  Check the weather!
+                </button>
+              </div>
+            </header>
+          </div>
+        </div>
       )}
     </div>
   );
