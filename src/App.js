@@ -9,10 +9,6 @@ function App() {
 
   React.useEffect(() => apiCall(), [location]);
 
-  function handleLocationChange(e) {
-    setLocation(e.target.value);
-  }
-
   function apiCall() {
     const apiKey = "0f23024ee3934277b83113541240504";
     fetch(
@@ -31,10 +27,9 @@ function App() {
       {showWeatherData ? (
         <div>
           <WeatherData
-            location={location}
+            setLocation={setLocation}
             forecast={forecast}
-            setForecast={setForecast}
-            showWeatherData={showWeatherData}
+            handleSubmit={handleSubmit}
           />
         </div>
       ) : (
@@ -48,7 +43,7 @@ function App() {
                 <input
                   className="town-input"
                   placeholder="Town/City"
-                  onChange={handleLocationChange}
+                  onChange={(e) => setLocation(e.target.value)}
                 />
                 <button className="submit-btn" onClick={handleSubmit}>
                   Check the weather!

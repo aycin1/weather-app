@@ -7,7 +7,9 @@
   color: white;
 }
 
-.page-title {
+.input-and-submit {
+  padding-top: 40px;
+  justify-content: center;
 }
 
 .weather-data {
