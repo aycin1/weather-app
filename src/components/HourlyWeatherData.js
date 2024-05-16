@@ -1,7 +1,7 @@
 import React from "react";
 import "./HourlyWeatherData.css";
 
-export default function WeatherData({
+export default function HourlyWeatherData({
   forecast,
   indexOfClicked,
   setIsHourlyForecast,

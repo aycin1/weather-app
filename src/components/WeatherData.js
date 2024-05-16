@@ -2,10 +2,9 @@ import React from "react";
 import "./WeatherData.css";
 import HourlyWeatherData from "./HourlyWeatherData";
 
-export default function WeatherData({ setLocation, forecast, handleSubmit }) {
+export default function WeatherData({ forecast }) {
   const [isHourlyForecast, setIsHourlyForecast] = React.useState(false);
   const [indexOfClicked, setIndexOfClicked] = React.useState();
-  const [submittedLocation, setSubmittedLocation] = React.useState();
 
   const forecastLocation = forecast.location.name;
 
@@ -64,25 +63,15 @@ export default function WeatherData({ setLocation, forecast, handleSubmit }) {
       });
     }
 
-    function handleLocationChange() {
-      setLocation(submittedLocation);
-      handleSubmit();
-    }
-
     return (
       <div className="weather-data">
-        <div className="page-title">The weather in {forecastLocation}:</div>
-        <div className="forecasts">{mapForecastDays()}</div>
-        <div className="input-and-submit">
-          <input
-            className="town-input"
-            placeholder="Town/City"
-            onChange={(e) => setSubmittedLocation(e.target.value)}
-          />
-          <button className="submit-btn" onClick={handleLocationChange}>
-            Check the weather!
-          </button>
+        <div className="page-title">
+          The weather in {forecastLocation}, {forecast.location.country}:
         </div>
+        <p className="description">
+          Click on a day to view the hourly forecast
+        </p>
+        <div className="forecasts">{mapForecastDays()}</div>
       </div>
     );
   }
@@ -90,7 +79,7 @@ export default function WeatherData({ setLocation, forecast, handleSubmit }) {
   return (
     <div className="weather-data">
       <div className="forecasts">
-        {!isHourlyForecast ? (
+        {isHourlyForecast === false ? (
           dailyWeatherData()
         ) : (
           <HourlyWeatherData
