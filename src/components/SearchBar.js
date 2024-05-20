@@ -4,16 +4,16 @@ import Dropdown from "react-bootstrap/Dropdown";
 export default function SearchBar({ setForecast }) {
   const [locationOptions, setLocationOptions] = React.useState();
 
-  function locationApiCall(location) {
+  function refineLocation(location) {
     if (location.length > 2) {
-      async function refineLocation() {
+      async function locationApiCall() {
         const apiKey = "0f23024ee3934277b83113541240504";
         const url = `http://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${location}`;
         const response = await fetch(url);
         return response.json();
       }
 
-      refineLocation()
+      locationApiCall()
         .then((data) => {
           setLocationOptions(data);
         })
@@ -74,7 +74,7 @@ export default function SearchBar({ setForecast }) {
             <input
               className="town-input"
               placeholder="Town/City"
-              onChange={(e) => locationApiCall(e.target.value)}
+              onChange={(e) => refineLocation(e.target.value)}
             />
           </Dropdown.Toggle>
           {mapLocationOptions(locationOptions)}
